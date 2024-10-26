@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<UpComingMovieModel> upcomingFuture;
+  late Future<UpComingMovieModel> nowPlayingfuture;
   ApiServices apiServices = ApiServices();
 
   @override
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     upcomingFuture = apiServices.getUpcomingMovies();
+    nowPlayingfuture = apiServices.getNowPlayingMovies();
   }
 
   @override
@@ -51,8 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 27,
               color: Colors.blue,
             ),
-          ),const
-          SizedBox(
+          ),
+          const SizedBox(
             width: 20,
           )
         ],
@@ -61,9 +63,17 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             SizedBox(
-                height: 220,
-                child: MovieCardWidget(
-                    future: upcomingFuture, headLineText: "Upcoming Movies"))
+              height: 250,
+              child: MovieCardWidget(
+                  future: upcomingFuture, headLineText: "Upcoming Movies"),
+            ),
+            SizedBox(
+              height: 220, 
+              child: MovieCardWidget(
+                  future: nowPlayingfuture, headLineText: "Now Playing"),
+            ),
+            
+             
           ],
         ),
       ),

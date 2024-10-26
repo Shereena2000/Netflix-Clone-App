@@ -18,4 +18,17 @@ class ApiServices {
     }
     throw Exception("failed to load upcoming movies");
   }
+
+    Future<UpComingMovieModel> getNowPlayingMovies() async {
+    endPoint = "movie/now_playing"; // Make sure it's the correct endpoint
+  final url = "$baseUrl$endPoint$key";
+  print("Requesting data from: $url"); // Print URL
+  final response = await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    print("Data received: ${response.body}");
+    return UpComingMovieModel.fromJson(jsonDecode(response.body));
+  }
+  print("Error: ${response.statusCode}");
+    throw Exception("failed to load now playing movies");
+  }
 }
